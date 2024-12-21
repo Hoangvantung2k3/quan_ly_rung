@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+>
+<head>
+      <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Quản lý cơ sở dữ liệu rừng</title>
+	<!-- BOOTSTRAP STYLES-->
+    <link th:href="@{/assets/css/bootstrap.css}" rel="stylesheet" />
+     <!-- FONTAWESOME STYLES-->
+    <link th:href="@{/assets/css/font-awesome.css}" rel="stylesheet" />
+        <!-- CUSTOM STYLES-->
+    <link th:href="@{/assets/css/custom.css}" rel="stylesheet" />
+     <!-- GOOGLE FONTS-->
+   <link th:href='@{http://fonts.googleapis.com/css?family=Open+Sans}' rel='stylesheet' type='text/css' />
+</head>
+<body>
+
+          
+    <div id="wrapper">
+         <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="adjust-nav">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" th:href="@{/home}"><i class="fa fa-home "></i> HOME</a>
+
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a th:href="@{/user/update}">My acc</a></li>
+                        <li><a th:href="@{/logout}">LOGOUT</a></li>
+
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        <!-- /. NAV TOP  -->
+        <nav class="navbar-default navbar-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav" id="main-menu">
+                    <li class="text-center user-image-back">
+                        <img th:src="@{/assets/img/find_user.png}" class="img-responsive" />
+                     
+                    </li>
+                    <li>
+                        <a th:href="@{/rungs/get}"><i class="fa fa-table "></i>Quản lý hiện trạng rừng</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/chu/get}"><i class="fa fa-table "></i>Quản lý chủ rừng</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/dvhc/huyen}"><i class="fa fa-table "></i>Đơn vị hành chính</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/user/get}"><i class="fa fa-desktop "></i>Danh sách Người dùng</a>
+                    </li>
+
+
+                    <li>
+                        <a th:href="@{/rungs/loaicay/}"><i class="fa fa-table "></i>Loại cây</a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/rungs/truluong/}"><i class="fa fa-table "></i>Trữ lượng</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/rungs/dieukien/}"><i class="fa fa-table "></i>Điều kiện lập địa</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/rungs/nguongoc/}"><i class="fa fa-table "></i>Nguồn Gốc</a>
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </nav>
+        <!-- /. NAV SIDE  -->
+        <div id="page-wrapper" >
+            <div id="page-inner">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>Danh mục rừng theo nguồn gốc</h2>
+                        <h4></h4>
+                        <div class="dropdown" style="float:left;">
+                            <button class="dropbtn">Chọn nguồn gốc</button>
+                            <div class="dropdown-content" th:field="${nguonGocList}">
+                                <a th:each="l: ${nguonGocList}" th:text="${l.name}" th:href="'/rungs/nguongoc/' + ${l.id}" >
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-6" style="float: right">
+                            <form th:action="@{/rungs/nguongoc/}">
+                                <div class="form-group" style="display: flex;justify-content: flex-end">
+                                    <input class="form-control" type="text" name="keyword" th:value="${keyword}" placeholder="Tìm theo tên" required/>
+                                    <button type="submit" class="btn btn-info" style="font-size: 14px;" >Tìm kiếm</button>
+                                    <a  th:href="@{/rungs/nguongoc/}" type="button" class="btn btn-primary" style="font-size: 14px;" >Tất cả</a>
+                                </div>
+                            </form>
+
+                        </div>
+
+<!--                        <a href="/rungs/form" class="btn btn-info" style="float: right; font-size: 20px">+ ADD</a>-->
+<!--                        <form th:action="@{/rungs/loaicay/}" method="get">-->
+<!--                            <div class="form-group" style="display: flex">-->
+<!--&lt;!&ndash;                                <input type="checkbox" name="id" th:value="${id}" placeholder="Tìm theo tên" required/>&ndash;&gt;-->
+<!--                                <select class="form-control" th:field="${loaiCayList}"onchange="window.location.href=this.value;" >-->
+<!--                                    <option th:text="Chọn loại cây"></option>-->
+<!--                                    <option th:each="l: ${loaiCayList}" th:text="${l.name}" th:value="'/rungs/loaicay/' + ${l.id}" >-->
+<!--                                    </option>-->
+
+<!--                                </select>-->
+<!--                                <button type="submit" class="btn btn-info" style="font-size: 14px;" >Tìm kiếm</button>-->
+<!--                                <a  th:href="@{/rungs/loaicay/}" type="button" class="btn btn-primary" style="font-size: 14px;" >Tất cả</a>-->
+<!--                            </div>-->
+<!--                        </form>-->
+<!--                    <form th:action="@{/rungs/loaicay/}">-->
+<!--                        <input name="id" type="number" th:value="${id}">-->
+<!--                        <select class="form-control" th:field="${loaiCayList}">-->
+<!--                            <th:block th:each="l: ${loaiCayList}">-->
+
+<!--                                <option  th:text="${l.name}" th:value="${l.id}" >-->
+<!--                                </option>-->
+<!--                            </th:block>-->
+<!--                        </select>-->
+<!--                        <a  th:href="@{/rungs/loaicay/}" type="button" class="btn btn-primary" style="font-size: 14px;" >Phân loại</a>-->
+<!--                    </form>-->
+
+
+
+
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Tên</th>
+                                <th>Tọa độ</th>
+                                <th>Diện tích</th>
+                                <th>Nguồn Gốc</th>
+                                <th>Thao tác</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="r : ${rung}">
+
+                                <td th:text="${r.id}"></td>
+                                <td th:text="${r.name}"></td>
+                                <td th:text="${r.toaDo}"></td>
+                                <td th:text="${r.dienTich}"></td>
+                                <td th:text="${r.nguonGoc.name}"></td>
+
+                                <td style="text-align: center">
+                                    <a th:href="@{'/rungs/delete/' + ${r.id}}" class="btn btn-danger" style="font-size: 10px; ">Xóa</a>
+                                    <a th:href="@{'/rungs/edit/' + ${r.id}}" class="btn btn-success" style="font-size: 10px;">Cập nhật</a>
+                                </td>
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>              
+                 <!-- /. ROW  -->
+                  <hr />
+              
+                 <!-- /. ROW  -->           
+    </div>
+             <!-- /. PAGE INNER  -->
+            </div>
+         <!-- /. PAGE WRAPPER  -->
+        </div>
+     <!-- /. WRAPPER  -->
+    <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
+    <!-- JQUERY SCRIPTS -->
+    <script th:src="@{/assets/js/jquery-1.10.2.js}"></script>
+      <!-- BOOTSTRAP SCRIPTS -->
+    <script th:src="@{/assets/js/bootstrap.min.js}"></script>
+    <!-- METISMENU SCRIPTS -->
+    <script th:src="@{/assets/js/jquery.metisMenu.js}"></script>
+      <!-- CUSTOM SCRIPTS -->
+    <script th:src="@{/assets/js/custom.js}"></script>
+    
+   
+</body>
+</html>
